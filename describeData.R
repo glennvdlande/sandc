@@ -4,6 +4,7 @@ describeData <- function(df, columns) {
   # Input:
   #   df = R data.frame that needs to be described.
   #   columns = string-vector of columns that are used as "group-by" columns. 
+  #             Can be 'all' in which case columns will just be summarized.
   # Output:
   #   output = R data.frame that describes the data grouped by the "columns" input
   #
@@ -12,6 +13,12 @@ describeData <- function(df, columns) {
   # attach packages
   library("psych")
   library("dplyr")
+  
+  if (columns == 'all') {
+    nam <- colnames(df)
+    df <- data.frame(cbind(df,matrix('all', nrow(df),1)))
+    colnames(df)<- c(nam, 'all')
+  }
   
   # get unique combinations of columns
   combinations <- data.frame(unique(df[,columns]), stringsAsFactors = FALSE)
