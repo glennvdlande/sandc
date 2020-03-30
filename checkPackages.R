@@ -16,5 +16,5 @@ checkPackages <- function(pkg){
     install.packages(new.pkg, dependencies = TRUE)
   
   # afterwards add all to library
-  sapply(pkg, library, character.only = TRUE)
+  invisible(sapply(pkg, library, character.only = TRUE))
 }
